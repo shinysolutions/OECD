@@ -1,0 +1,446 @@
+
+---
+title: "OECD Report"
+subtitle: "OECD Centre of Government Survey 2014"
+output: 
+  pdf_document:
+    fig_width: 9
+    fig_height: 6
+    fig_caption: true
+classoption: landscape    
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{}
+- \fancyhead[LO,LE]{OECD report}
+- \fancyfoot[LE,RO]{Source{:} OECD Centre of Government Survey 2014, \href{http://funfact.eu/index_no.php}{funfact.eu} \hspace{10 mm} \thepage}
+- \fancyfoot[CO,CE]{}
+
+
+---
+
+
+
+
+```{r, echo=FALSE}
+myplot <- function(dat) {
+      if (nrow(dat) > 1) {
+      if (ncol(dat) == 2) {
+        par(xaxs= "i", bty = "n", xaxt = "n", yaxt = "n", font = 1, family = "sans", mar = rep(1, 4))
+        plot(1:2, xlim = xlim, ylim = ylim, type='n', xlab = "", ylab = "")
+        rasterImage(worldMap, xlim[1], ylim[1], xlim[2], ylim[2])
+        myColor <- c(colGray, terrain.colors(length(unique(dat[,2]))))[1:length(unique(dat[,2]))]
+        names(myColor) <- sort(unique(dat[,2]))
+        for(i in 1:length(CNT)){
+          cnt <- CNT[[i]]
+          polygon(as.numeric(cnt$x), as.numeric(cnt$y), col = myColor[dat[which(dat$CountryCode == names(CNT)[i]),2]], border = NA)
+          text( mean(cnt$x), mean(cnt$y)-4, names(CNT)[i], col = "white", font = 2, cex =  1.5)
+        }
+        rd <- 8
+        myColor <- myColor[rev(order(nchar(names(myColor))))]
+        for (n in 1:length(myColor)) {
+          hexagon(15, 470 + 3*(n-1)*rd, r = rd, col = myColor[n], border = NA)
+          text( 15+2*rd, 470 + 3*(n-1)*rd, names(myColor)[n],  pos = 4)
+        }
+      } else {
+        par(xaxs= "i", bty = "n",  yaxt = "n", font = 1,  mar = c(2,1,1,1))
+        barplot(rep(ncol(dat)-.5, nrow(dat)), space = 0, border= NA, col = c(colGray, "gray"))
+        for (m in 2:ncol(dat)) {
+          # text(0, m-1, topics$Topics[which(topics$TopicsCode == names(tmp)[m])], pos = 4)
+          val <- as.numeric(dat[,m])
+          val[is.na(val)] <- 2
+          points(seq(1, nrow(dat)) -0.5, rep(m-1.5, nrow(dat)), pch = 20, cex = 3, col = c(colGreen, "white")[val])
+          text(0, rep(m-1.5 + strheight("A")*1.5, nrow(dat)), topics$Topics[which(topics$TopicsCode == names(dat)[m])], pos = 4)
+        }
+        for (n in 1:nrow(dat)) {
+          axis(1, at = n -0.5, labels = dat$CountryCode[n], tick = FALSE, line = -1)
+        }
+      }
+    }
+}
+
+q_ls <- list()
+for (i in 1:length(Q_ls)) {
+  if (class(Q_ls[[i]]) == "list") {
+    for (m in 1:length(Q_ls[[i]])) {
+      q_ls[[names(Q_ls[[i]])[m]]] <- Q_ls[[i]][[m]]
+    }
+  } else {
+    q_ls[[names(Q_ls)[i]]] <- Q_ls[[i]]
+  }
+}
+
+hexagon <- function(x, y, r = 1, ...){
+  x = x+r*cos(seq(30, 360, by =  60)/180*pi)
+  y = y+r*sin(seq(30, 360, by =  60)/180*pi)
+  polygon(x, y, ...)
+}
+
+```
+
+
+
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 1 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 2 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 3 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 4 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 5 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 6 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 7 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 8 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 9 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 10 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 11 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 12 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 13 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 14 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 15 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 16 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 17 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 18 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 19 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 20 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 21 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 22 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 23 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 24 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 25 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 26 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 27 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 28 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 29 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 30 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 31 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 32 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 33 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 34 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 35 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 36 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 37 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 38 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 39 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 40 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 41 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 42 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 43 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 44 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 45 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 46 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 47 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 48 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 49 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 50 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 51 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 52 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 53 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 54 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 55 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 56 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 57 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 58 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 59 ]] )
+
+```
+      
+      
+```{r, echo=FALSE, results='asis'}
+myplot(dat = q_ls[[ 60 ]] )
+
+```
+      
+      
+
+
+
+

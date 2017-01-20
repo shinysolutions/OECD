@@ -1,0 +1,1 @@
+iris[do.call(order, iris[,1:3]),]
